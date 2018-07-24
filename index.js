@@ -43,10 +43,10 @@ app.post("/registration", (req, res) => {
     console.log(req.body);
     let pass = "";
     if (
-        req.body.firstName === "" ||
-        req.body.lastName === "" ||
-        req.body.emailAddress === "" ||
-        req.body.password === ""
+        !req.body.firstName ||
+        !req.body.lastName ||
+        !req.body.email ||
+        !req.body.password
     ) {
         res.json({
             error: "Please, fill all the fields."
@@ -82,12 +82,11 @@ app.post("/registration", (req, res) => {
 
 app.get("/welcome", function(req, res) {
     if (req.session.id) {
-        res.redirect("/");
+        redirect("/");
     } else {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
 app.get("*", signedOutRedirect, function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });

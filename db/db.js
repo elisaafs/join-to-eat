@@ -4,7 +4,7 @@ let db;
 if (process.env.DATABASE_URL) {
     db = spicedPg(process.env.DATABASE_URL);
 } else {
-    db = spicedPg(`postgres:Elisa:elisa1@localhost:5432/petition`);
+    db = spicedPg(`postgres:Elisa:elisa1@localhost:5432/socialnetwork`);
 }
 
 exports.registerUser = function(firstName, lastName, email, hashedPassword) {
