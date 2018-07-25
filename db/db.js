@@ -19,9 +19,10 @@ exports.registerUser = function(firstName, lastName, email, hashedPassword) {
     });
 };
 
-exports.returnAllUsers = function() {
-    const q = `SELECT * FROM users;`;
-    return db.query(q).then(results => {
-        return results.rows;
+exports.getInfo = function(email) {
+    const q = `SELECT email, hashed_password, id FROM users WHERE email= $1;`;
+    const params = [email];
+    return db.query(q, params).then(results => {
+        return results.rows[0];
     });
 };

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "./axios";
-import { Link } from "react-router-dom";
 
-class Registration extends Component {
+class Login extends Component {
     constructor() {
         super();
 
@@ -23,7 +22,7 @@ class Registration extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        axios.post("/registration", this.state).then(resp => {
+        axios.post("/login", this.state).then(resp => {
             console.log(this.state);
             console.log(resp.data.user);
             if (resp.data.error) {
@@ -38,22 +37,10 @@ class Registration extends Component {
 
     render() {
         return (
-            <div className="registration">
+            <div className="login">
                 <div className="form-wrapper">
                     {this.state.error ? <div>{this.state.error}</div> : null}
                     <form className="form" onSubmit={this.handleSubmit}>
-                        <input
-                            onChange={this.handleChange}
-                            name="firstName"
-                            placeholder="First Name"
-                            type="text"
-                        />
-                        <input
-                            onChange={this.handleChange}
-                            name="lastName"
-                            placeholder="Last Name"
-                            type="text"
-                        />
                         <input
                             onChange={this.handleChange}
                             name="email"
@@ -66,15 +53,12 @@ class Registration extends Component {
                             placeholder="Password"
                             type="password"
                         />
-                        <button type="submit">Create an account</button>
+                        <button type="submit">Log in</button>
                     </form>
-                    <div className="login-form">
-                        Already signed up? <Link to="/login">Log in</Link>
-                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default Registration;
+export default Login;
