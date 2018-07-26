@@ -26,3 +26,26 @@ exports.getInfo = function(email) {
         return results.rows[0];
     });
 };
+
+exports.getUserById = function(userId) {
+    console.log("5555", userId);
+    const q = `SELECT id, first_name, last_name, profile_pic FROM users WHERE id= $1;`;
+    const params = [userId];
+    return db.query(q, params).then(results => {
+        console.log(results.rows);
+        return results.rows[0];
+    });
+};
+
+exports.updateUserImage = function(userId, profilePic) {
+    const q = `
+        UPDATE users SET
+        profile_pic = $2
+        WHERE id = $1
+        RETURNING *;
+        `;
+    const params = [userId, profilePic];
+    return db.query(q, params).then(results => {
+        return results.rows[0].profile_pic;
+    });
+};

@@ -6,6 +6,29 @@ const db = require("./db/db.js");
 const cookieSession = require("cookie-session");
 const bc = require("./conf/bcrypt.js");
 const csurf = require("csurf");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+const s3 = require("./s3");
+const config = require("./config");
+
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 
 app.use(
     cookieSession({
@@ -88,6 +111,23 @@ app.post("/registration", (req, res) => {
     }
 });
 
+app.get("/user", function(req, res) {
+    db.getUserById(req.session.id)
+        .then(data => res.json(data))
+        .catch(() => res.sendStatus(500));
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
+    db.updateUserImage(req.session.id, config.s3Url + req.file.filename).then(
+        imgUrl => {
+            res.json({
+                success: true,
+                url: imgUrl
+            });
+        }
+    );
+});
+
 app.get("/welcome", function(req, res) {
     if (req.session.id) {
         res.redirect("/");
@@ -95,14 +135,6 @@ app.get("/welcome", function(req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
-// app.get("/login", function(req, res) {
-//     if (req.session.id) {
-//         res.redirect("/");
-//     } else {
-//         res.sendFile(__dirname + "/index.html");
-//     }
-// });
 
 app.post("/login", function(req, res) {
     if (!req.body.email || !req.body.password) {
