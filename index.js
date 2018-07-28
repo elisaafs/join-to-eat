@@ -66,6 +66,12 @@ if (process.env.NODE_ENV != "production") {
             target: "http://localhost:8081/"
         })
     );
+    app.use(
+        "/bundle.js.map",
+        require("http-proxy-middleware")({
+            target: "http://localhost:8081/"
+        })
+    );
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
@@ -166,6 +172,21 @@ app.post("/login", function(req, res) {
             }
         });
     }
+});
+
+app.post("/bio", (req, res) => {
+    console.log("req.body.bio", req.body.bio);
+    db.saveBio(req.session.id, req.body.bio).then(bio => {
+        console.log("bio", bio);
+        res.json({ bio });
+    });
+});
+
+app.get("/bio", (req, res) => {
+    console.log("get a bio", req.body.bio);
+    db.getBioById(req.session.id).then(bio => {
+        res.json(bio);
+    });
 });
 
 app.get("*", signedOutRedirect, function(req, res) {

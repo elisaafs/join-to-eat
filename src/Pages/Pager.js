@@ -1,0 +1,108 @@
+import React, { Component } from "react";
+
+import BbqPage from "./BbqPage";
+import BluePage from "./BluePage";
+import GreenPage from "./GreenPage";
+import MainPage from "./MainPage";
+import PageSwitch from "./PageSwitch";
+
+class Pager extends React.Component {
+    constructor(props) {
+        super(props);
+        this.pages = [MainPage, BluePage, GreenPage, BbqPage];
+        this.switchHandler = this.switchHandler.bind(this);
+        this.transitionEnd = this.transitionEnd.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
+        this.signupHandler = this.signupHandler.bind(this);
+        this.classes = [];
+        this.state = {
+            activeDot: 0,
+            inTransition: false
+        };
+    }
+
+    switchHandler(clickedPage) {
+        if (this.state.inTransition) {
+            return;
+        }
+        if (clickedPage === this.state.activeDot) {
+            return;
+        }
+
+        if (clickedPage < this.state.activeDot) {
+            //moveDown
+            this.classes[clickedPage] = "moveDownIn";
+            this.classes[this.state.activeDot] = "moveDownOut";
+        } else {
+            //moveUp
+            this.classes[clickedPage] = "moveUpIn";
+            this.classes[this.state.activeDot] = "moveUpOut";
+        }
+
+        this.setState({
+            inTransition: true
+        });
+        setTimeout(() => {
+            this.setState({
+                activeDot: clickedPage,
+                inCssTransition: true
+            });
+        });
+    }
+
+    transitionEnd() {
+        this.setState({
+            inTransition: false,
+            inCssTransition: false
+        });
+        this.classes = [];
+    }
+
+    signupHandler() {}
+
+    loginHandler() {}
+
+    render() {
+        const pageElements = this.pages.map((Page, index) => {
+            let classes = "page ";
+            if (this.state.inTransition) {
+                if (this.state.inCssTransition) {
+                    classes += "transitioning ";
+                }
+                classes += this.classes[index] || "outside";
+            } else {
+                if (this.state.activeDot === index) {
+                    classes += "inside";
+                } else {
+                    classes += "outside";
+                }
+            }
+
+            return (
+                <div
+                    key={index}
+                    className={classes}
+                    onTransitionEnd={this.transitionEnd}
+                >
+                    <Page
+                        loginHandler={this.loginHandler}
+                        signupHandler={this.signupHandler}
+                    />
+                </div>
+            );
+        });
+
+        return (
+            <div className="pager">
+                {pageElements}
+                <PageSwitch
+                    numberOfDots={4}
+                    activeDot={this.state.activeDot}
+                    switchHandler={this.switchHandler}
+                />
+            </div>
+        );
+    }
+}
+
+export default Pager;

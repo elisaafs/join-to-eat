@@ -1,10 +1,12 @@
 html {
     font-family: "Open Sans", sans-serif;
-    background: linear-gradient(white, #ffdcba);
+    height: 100%;
 }
 
-body {
+body,
+main {
     margin: 0;
+    height: 100%;
 }
 
 .form-wrapper {
@@ -170,4 +172,128 @@ button {
 
 span {
     font-weight: bold;
+}
+
+.bbq-page {
+    min-height: 100%;
+    background-color: rgb(86, 0, 0);
+}
+
+.blue-page {
+    min-height: 100%;
+    background-color: rgb(0, 0, 255);
+}
+
+.green-page {
+    min-height: 100%;
+    background-color: rgb(86, 188, 138);
+}
+
+.main-page {
+    min-height: 100%;
+    background-color: rgb(255, 255, 0);
+}
+
+.green-page-reasons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reason-to-join img {
+    width: 180px;
+}
+
+.reason-to-join div {
+    width: 200px;
+}
+
+.reason-to-join {
+    color: white;
+    text-align: center;
+    margin: 20px;
+}
+
+.pager {
+    height: 100%;
+}
+
+.pager > .page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.page-switch {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 10px;
+    height: 100%;
+    justify-content: center;
+}
+
+.page-switch-dot-active,
+.page-switch-dot-inactive {
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    box-sizing: border-box;
+    border: 3px solid white;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.page-switch-dot-active {
+    background-color: white;
+}
+
+.page.moveDownIn {
+    transform: translateY(-100%);
+}
+
+.page.moveDownOut {
+    transform: translateY(0%);
+}
+
+.page.moveDownIn.transitioning {
+    transform: translateY(0%);
+    transition: 1s;
+}
+
+.page.moveDownOut.transitioning {
+    transform: translateY(100%);
+    transition: 1s;
+}
+
+.page.outside {
+    transform: translateY(100%);
+}
+
+.page.inside {
+    transform: translateY(0);
+}
+
+.page.moveUpIn {
+    transform: translateY(100%);
+}
+
+.page.moveUpOut {
+    transform: translateY(0%);
+}
+
+.page.moveUpIn.transitioning {
+    transform: translateY(0%);
+    transition: 1s;
+}
+
+.page.moveUpOut.transitioning {
+    transform: translateY(-100%);
+    transition: 1s;
 }

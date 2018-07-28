@@ -23,6 +23,7 @@ const conf = {
         path: __dirname,
         filename: "bundle.js"
     },
+    devtool: "source-map",
     plugins: plugins,
     module: {
         loaders: [
