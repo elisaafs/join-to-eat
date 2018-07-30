@@ -23,8 +23,6 @@ class Login extends Component {
         e.preventDefault();
 
         axios.post("/login", this.state).then(resp => {
-            console.log(this.state);
-            console.log(resp.data.user);
             if (resp.data.error) {
                 this.setState({
                     error: resp.data.error

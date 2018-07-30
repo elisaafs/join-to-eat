@@ -28,8 +28,7 @@ exports.getInfo = function(email) {
 };
 
 exports.getUserById = function(userId) {
-    console.log("5555", userId);
-    const q = `SELECT id, first_name, last_name, profile_pic FROM users WHERE id= $1;`;
+    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, bio FROM users WHERE id= $1;`;
     const params = [userId];
     return db.query(q, params).then(results => {
         console.log(results.rows);
@@ -45,6 +44,19 @@ exports.updateUserImage = function(userId, profilePic) {
         RETURNING *;
         `;
     const params = [userId, profilePic];
+    return db.query(q, params).then(results => {
+        return results.rows[0].profile_pic;
+    });
+};
+
+exports.updateCoverImage = function(userId, coverPic) {
+    const q = `
+        UPDATE users SET
+        cover_pic = $2
+        WHERE id = $1
+        RETURNING *;
+        `;
+    const params = [userId, coverPic];
     return db.query(q, params).then(results => {
         return results.rows[0].profile_pic;
     });

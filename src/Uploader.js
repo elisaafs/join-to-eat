@@ -14,45 +14,45 @@ class Uploader extends Component {
         });
     }
     upload() {
-        var self = this;
         var formData = new FormData();
-        console.log("imageFile: ", this.state.imageFile);
-        if (this.state.imageFile == "") {
-            this.setState({
-                error: "Please, select a file to upload"
-            });
-        } else {
-            formData.append("file", this.state.imageFile);
-            axios.post("/upload", formData).then(res => {
-                console.log("axios post /upload : ", res.data.url);
-                if (res.data.success) {
-                    this.props.setImage(res.data.url);
-                }
-            });
-        }
+        // if (this.state.imageFile == "") {
+        //     this.setState({
+        //         error: "Please, select a file to upload."
+        //     });
+        // } else {
+        formData.append("file", this.state.imageFile);
+        axios.post("/upload", formData).then(res => {
+            // console.log(this.state.imageFile);
+            // if (res.data.success) {
+            this.props.setImage(res.data.url);
+        });
     }
+    // }
     render() {
         return (
             <div id="uploader">
-                <h3>Change your profile image</h3>
-                <label id="file-label" htmlFor="file-field">
-                    Select image
-                </label>
-                <input
-                    id="file-field"
-                    type="file"
-                    onChange={this.imageSelected}
-                    name=""
-                    value=""
-                />
-                <div className="content-box">
-                    <button
-                        id="upload-button"
-                        onClick={this.upload}
-                        name="button"
-                    >
-                        Upload
-                    </button>
+                <div className="uploader-modal">
+                    <i className="fas fa-times icon-modal" />
+                    <h3>Update Profile Picture</h3>
+                    <label id="file-label" htmlFor="file-field">
+                        Select a Image
+                    </label>
+                    <input
+                        id="file-field"
+                        type="file"
+                        onChange={this.imageSelected}
+                        name=""
+                        value=""
+                    />
+                    <div className="content-box">
+                        <button
+                            id="upload-button"
+                            onClick={this.upload}
+                            name="button"
+                        >
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         );

@@ -8,5 +8,6 @@ CREATE TABLE users (
     hashed_password VARCHAR(100) NOT NULL,
     bio TEXT,
     profile_pic VARCHAR(300),
+    cover_pic VARCHAR(1000),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

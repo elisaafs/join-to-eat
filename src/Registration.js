@@ -24,8 +24,6 @@ class Registration extends Component {
         e.preventDefault();
 
         axios.post("/registration", this.state).then(resp => {
-            console.log(this.state);
-            console.log(resp.data.user);
             if (resp.data.error) {
                 this.setState({
                     error: resp.data.error
@@ -66,11 +64,8 @@ class Registration extends Component {
                             placeholder="Password"
                             type="password"
                         />
-                        <button type="submit">Create an account</button>
+                        <button type="submit">Sign Up</button>
                     </form>
-                    <div className="login-form">
-                        Already signed up? <Link to="/login">Log in</Link>
-                    </div>
                 </div>
             </div>
         );

@@ -77,7 +77,6 @@ if (process.env.NODE_ENV != "production") {
 }
 
 app.post("/registration", (req, res) => {
-    console.log(req.body);
     let pass = "";
     if (
         !req.body.firstName ||
@@ -100,7 +99,6 @@ app.post("/registration", (req, res) => {
                         pass
                     )
                     .then(registeredUser => {
-                        console.log(registeredUser);
                         req.session.id = registeredUser.id;
                         res.json({
                             success: true,
@@ -109,7 +107,6 @@ app.post("/registration", (req, res) => {
                     });
             })
             .catch(err => {
-                console.log(err);
                 res.json({
                     error: "The email address already exists."
                 });
@@ -120,7 +117,10 @@ app.post("/registration", (req, res) => {
 app.get("/user", function(req, res) {
     db.getUserById(req.session.id)
         .then(data => res.json(data))
-        .catch(() => res.sendStatus(500));
+        .catch(err => {
+            console.log("is not working", err);
+            res.sendStatus(500);
+        });
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
@@ -129,6 +129,20 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
             res.json({
                 success: true,
                 url: imgUrl
+            });
+        }
+    );
+});
+
+app.post("/uploadcover", uploader.single("file"), s3.upload, function(
+    req,
+    res
+) {
+    db.updateCoverImage(req.session.id, config.s3Url + req.file.filename).then(
+        imgCoverUrl => {
+            res.json({
+                success: true,
+                coverUrl: imgCoverUrl
             });
         }
     );
@@ -175,18 +189,25 @@ app.post("/login", function(req, res) {
 });
 
 app.post("/bio", (req, res) => {
-    console.log("req.body.bio", req.body.bio);
     db.saveBio(req.session.id, req.body.bio).then(bio => {
-        console.log("bio", bio);
         res.json({ bio });
     });
 });
 
 app.get("/bio", (req, res) => {
-    console.log("get a bio", req.body.bio);
     db.getBioById(req.session.id).then(bio => {
         res.json(bio);
     });
+});
+
+app.get("/user/:id.json", function(req, res) {
+    if ((res.session.id = req.params.id)) {
+        res.json({
+            redirect: "/"
+        });
+    } else {
+        db.getUserById(req.params.id);
+    }
 });
 
 app.get("*", signedOutRedirect, function(req, res) {

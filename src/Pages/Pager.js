@@ -17,7 +17,9 @@ class Pager extends React.Component {
         this.classes = [];
         this.state = {
             activeDot: 0,
-            inTransition: false
+            inTransition: false,
+            showLoginForm: false,
+            showSignupForm: false
         };
     }
 
@@ -58,9 +60,19 @@ class Pager extends React.Component {
         this.classes = [];
     }
 
-    signupHandler() {}
+    signupHandler() {
+        this.setState({
+            showSignupForm: true,
+            showLoginForm: false
+        });
+    }
 
-    loginHandler() {}
+    loginHandler() {
+        this.setState({
+            showLoginForm: true,
+            showSignupForm: false
+        });
+    }
 
     render() {
         const pageElements = this.pages.map((Page, index) => {
@@ -87,6 +99,9 @@ class Pager extends React.Component {
                     <Page
                         loginHandler={this.loginHandler}
                         signupHandler={this.signupHandler}
+                        switchHandler={this.switchHandler}
+                        showLoginForm={this.state.showLoginForm}
+                        showSignupForm={this.state.showSignupForm}
                     />
                 </div>
             );
@@ -96,7 +111,7 @@ class Pager extends React.Component {
             <div className="pager">
                 {pageElements}
                 <PageSwitch
-                    numberOfDots={4}
+                    numberOfDots={this.pages.length}
                     activeDot={this.state.activeDot}
                     switchHandler={this.switchHandler}
                 />

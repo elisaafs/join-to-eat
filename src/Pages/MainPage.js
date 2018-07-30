@@ -1,48 +1,63 @@
 import React from "react";
+import BigLogo from "../BigLogo";
+import LogoMain from "../LogoMain";
+import SignUpButton from "../SignUpButton";
+import LoginButton from "../LoginButton";
+import Login from "../Login";
+import Registration from "../Registration";
+import TopMainPageWhenLogin from "../TopMainPageWhenLogin";
+import TopMainPageWhenSignUp from "../TopMainPageWhenSignUp";
 
-import ReasonToJoin from "../ReasonToJoin";
+function MainPage({
+    loginHandler,
+    signupHandler,
+    switchHandler,
+    showLoginForm,
+    showSignupForm
+}) {
+    let form;
+    let icons;
+    if (showLoginForm) {
+        form = <Login />;
+        icons = <TopMainPageWhenLogin signupHandler={signupHandler} />;
+    } else if (showSignupForm) {
+        form = <Registration />;
+        icons = <TopMainPageWhenSignUp loginHandler={loginHandler} />;
+    } else {
+        form = [
+            <SignUpButton key="signup" signupHandler={signupHandler} />,
+            <LoginButton key="login" loginHandler={loginHandler} />
+        ];
+        icons = <LogoMain />;
+    }
 
-function MainPage({ loginHandler, signupHandler }) {
     return (
         <div className="main-page">
-            <div className="green-page-reasons">
-                <ReasonToJoin
-                    imageUrl="/image/1.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/2.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/3.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/4.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/5.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/6.png"
-                    text="Join to invite people for a meal made by you."
-                />
-                <ReasonToJoin
-                    imageUrl="/image/7.png"
-                    text="Join to invite people for a meal made by you."
-                />
+            <div className="wrapper-video">
+                <video
+                    className="video-main-page"
+                    width="100%"
+                    height="100%"
+                    autoPlay="true"
+                    loop="true"
+                    muted="true"
+                >
+                    <source src="./image/video.mp4" type="video/mp4" />
+                </video>
             </div>
-
-            <div className="green-title">
-                If you have ever thought of anything related to eating, we
-                thought of it before.
+            <div className="wrapper-infos">
+                <div className="subwrapper-info">
+                    <BigLogo />
+                    <div className="text-main-page">
+                        For those who believe that eating is a social act.
+                    </div>
+                    {form}
+                </div>
             </div>
-            <div className="green-call-to-action">
-                Sign up now and find your company for the next meal.
+            <div className="blue-bottom" onClick={switchHandler.bind(null, 1)}>
+                What is Join to Eat?
             </div>
+            <div className="logo-top">{icons}</div>
         </div>
     );
 }
