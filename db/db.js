@@ -28,7 +28,7 @@ exports.getInfo = function(email) {
 };
 
 exports.getUserById = function(userId) {
-    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, bio FROM users WHERE id= $1;`;
+    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, bio, age, food, chef FROM users WHERE id= $1;`;
     const params = [userId];
     return db.query(q, params).then(results => {
         console.log(results.rows);
@@ -58,7 +58,7 @@ exports.updateCoverImage = function(userId, coverPic) {
         `;
     const params = [userId, coverPic];
     return db.query(q, params).then(results => {
-        return results.rows[0].profile_pic;
+        return results.rows[0].cover_pic;
     });
 };
 
@@ -80,5 +80,45 @@ exports.getBioById = function(id) {
     const q = `SELECT bio FROM users WHERE id = $1;`;
     return db.query(q, params).then(bio => {
         return bio.rows[0];
+    });
+};
+
+exports.getFriendshipStatus = function(userId, bffId) {
+    const q = `SELECT * FROM friendships WHERE ((receiver_id = $1 AND sender_id = $2) OR ( receiver_id = $2 AND sender_id = $1));`;
+    const params = [userId, bffId];
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.createBff = function(userId, bffId) {
+    const params = [userId, bffId];
+    const q = `INSERT INTO friendships (sender_id, receiver_id, status) VALUES ($1, $2, 'pending');`;
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.cancelBff = function(userId, bffId) {
+    const params = [userId, bffId];
+    console.log(params);
+    const q = `DELETE FROM friendships WHERE ((sender_id = $1 AND receiver_id = $2)
+    OR (sender_id = $2 AND receiver_id = $1));
+    `;
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.acceptBff = function(userId, bffId) {
+    const params = [userId, bffId];
+    const q = `
+        UPDATE friendships
+        SET status = 'friends'
+        WHERE ((sender_id = $1 AND receiver_id = $2)
+        OR (sender_id = $2 AND receiver_id = $1));
+        `;
+    return db.query(q, params).then(results => {
+        return results.rows[0];
     });
 };

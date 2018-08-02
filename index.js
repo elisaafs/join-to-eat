@@ -201,13 +201,52 @@ app.get("/bio", (req, res) => {
 });
 
 app.get("/user/:id.json", function(req, res) {
-    if ((res.session.id = req.params.id)) {
+    if (req.session && req.params && req.session.id == req.params.id) {
         res.json({
             redirect: "/"
         });
     } else {
-        db.getUserById(req.params.id);
+        db.getUserById(req.params.id).then(data => {
+            res.json({ data });
+        });
     }
+});
+
+app.get("/friendships/:id", function(req, res) {
+    db.getFriendshipStatus(req.session.id, req.params.id).then(results => {
+        res.json({
+            ...results
+        });
+    });
+});
+
+app.post("/friendships/pending/:id", function(req, res) {
+    db.createBff(req.session.id, req.params.id).then(results => {
+        res.json({
+            success: true
+        });
+    });
+});
+
+app.post("/friendships/cancel/:id", function(req, res) {
+    db.cancelBff(req.session.id, req.params.id).then(results => {
+        res.json({
+            success: true
+        });
+    });
+});
+
+app.post("/friendships/accept/:id", function(req, res) {
+    db.acceptBff(req.session.id, req.params.id).then(results => {
+        res.json({
+            success: true
+        });
+    });
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/welcome");
 });
 
 app.get("*", signedOutRedirect, function(req, res) {

@@ -2,18 +2,16 @@ import React from "react";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
 
-function TopAppPage({ children }) {
+function TopOPPPage({ children }) {
     return (
         <div className="wrapper-top-app">
             <Link to="/">
                 <Logo />
             </Link>
-
             <div className="wrapper-app">
                 <Link to="/">
-                    <i className="fas fa-home icons-app onscreen" />
+                    <i className="fas fa-home icons-app" />
                 </Link>
-
                 <a href="/friends">
                     <i className="fas fa-user-friends icons-app" />
                 </a>
@@ -26,4 +24,4 @@ function TopAppPage({ children }) {
     );
 }
 
-export default TopAppPage;
+export default TopOPPPage;

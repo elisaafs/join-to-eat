@@ -13,12 +13,23 @@ class ProfileTop extends Component {
             [e.target.name]: e.target.value
         });
     }
+
     render() {
         const { firstName, lastName } = this.props;
         return (
             <div className="wrapper-seta">
                 <p className="name-user">{`${firstName} ${lastName}`}</p>
-                <i className="fas fa-angle-down arrow-down" />
+                <div className="wrapper-arrow">
+                    <i className="fas fa-angle-down arrow-down" />
+                    <div className="big-wrapper-menu">
+                        <div className="wrapper-menu-arrow">
+                            <div className="menu-arrow">Edit Profile</div>
+                            <a className="menu-arrow" href="/logout">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
