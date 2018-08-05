@@ -122,3 +122,18 @@ exports.acceptBff = function(userId, bffId) {
         return results.rows[0];
     });
 };
+
+exports.listOfFriends = function(userId) {
+    const params = [userId];
+    const q = `
+           SELECT users.id, first_name, last_name, profile_pic, status
+           FROM friendships
+           JOIN users
+           ON (status = 'pending' AND receiver_id = $1 AND sender_id = users.id)
+           OR (status = 'friends' AND receiver_id = $1 AND sender_id = users.id)
+           OR (status = 'friends' AND sender_id = $1 AND receiver_id = users.id);
+       `;
+    return db.query(q, params).then(results => {
+        return results.rows;
+    });
+};

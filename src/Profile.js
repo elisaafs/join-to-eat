@@ -1,5 +1,4 @@
 import React from "react";
-import TopAppPage from "./TopAppPage";
 import axios from "./axios";
 import ProfilePic from "./ProfilePic";
 import ProfileWhite from "./ProfileWhite";
@@ -7,8 +6,7 @@ import CoverPic from "./CoverPic";
 import Bio from "./Bio";
 import Uploader from "./Uploader";
 import UploaderCover from "./UploaderCover";
-import ProfilePicTop from "./ProfilePicTop";
-import ProfileTop from "./ProfileTop";
+import { Link } from "react-router-dom";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -95,15 +93,6 @@ class Profile extends React.Component {
 
         return (
             <div id="profile">
-                <TopAppPage>
-                    <ProfilePicTop
-                        image={profilePic}
-                        first={firstName}
-                        last={lastName}
-                        clickHandler={this.showUploader}
-                    />
-                    <ProfileTop firstName={firstName} lastName={lastName} />
-                </TopAppPage>
                 <div className="big-wrapper">
                     <div className="wrapper-relative">
                         <CoverPic
@@ -120,9 +109,10 @@ class Profile extends React.Component {
                         />
                     </div>
                     <div className="white-wrapper">
-                        <a className="names-white first screen" href="/">
+                        <Link to="/" className="names-white first screen">
                             Timeline
-                        </a>
+                        </Link>
+
                         <a className="names-white" href="/about">
                             About
                         </a>
@@ -130,9 +120,10 @@ class Profile extends React.Component {
                             firstName={firstName}
                             lastName={lastName}
                         />
-                        <a className="names-white" href="/Friends">
+                        <Link to="/friends" className="names-white">
                             Friends
-                        </a>
+                        </Link>
+
                         <a className="names-white last" href="/Chat">
                             Chat
                         </a>
@@ -144,8 +135,6 @@ class Profile extends React.Component {
                         setBio={this.setBio}
                     />
                 </div>
-
-                <div className="footer" />
 
                 {this.state.uploaderIsVisible && (
                     <Uploader

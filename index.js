@@ -11,6 +11,8 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 const config = require("./config");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -30,12 +32,16 @@ const uploader = multer({
     }
 });
 
-app.use(
-    cookieSession({
-        secret: `I'm always hungry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -244,6 +250,12 @@ app.post("/friendships/accept/:id", function(req, res) {
     });
 });
 
+app.get("/wannabe-friends", function(req, res) {
+    db.listOfFriends(req.session.id).then(results => {
+        res.json({ results });
+    });
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/welcome");
@@ -253,4 +265,12 @@ app.get("*", signedOutRedirect, function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(process.env.PORT || 8080);
+server.listen(8080);
+
+io.on("connection", function(socket) {
+    if (!socket.request.session || !socket.request.session.user) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.user.id;
+});

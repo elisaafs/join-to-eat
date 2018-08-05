@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import axios from "./axios";
-import TopOPPPage from "./TopOPPPage";
-import ProfileTop from "./ProfileTop";
 import ProfilePicOPP from "./ProfilePicOPP";
 import ProfileWhite from "./ProfileWhite";
 import CoverPicOPP from "./CoverPicOPP";
-import ProfilePicTop from "./ProfilePicTop";
-import Uploader from "./Uploader";
 import FriendButton from "./FriendButton";
 
 class OtherPersonsProfile extends Component {
@@ -15,7 +11,6 @@ class OtherPersonsProfile extends Component {
         this.state = {};
         this.closeUploader = this.closeUploader.bind(this);
         this.showUploader = this.showUploader.bind(this);
-        this.setImage = this.setImage.bind(this);
     }
     showUploader() {
         this.setState({
@@ -29,12 +24,6 @@ class OtherPersonsProfile extends Component {
         });
     }
 
-    setImage(url) {
-        this.setState({
-            uploaderIsVisible: false
-        });
-        this.props.setProfilePic(url);
-    }
     componentDidMount() {
         axios
             .get("/user/" + this.props.match.params.id + ".json")
@@ -54,7 +43,6 @@ class OtherPersonsProfile extends Component {
             });
     }
     render() {
-        const { firstName, lastName, profilePic } = this.props;
         const {
             first_name,
             last_name,
@@ -64,15 +52,6 @@ class OtherPersonsProfile extends Component {
         } = this.state;
         return (
             <div id="other-persons">
-                <TopOPPPage>
-                    <ProfilePicTop
-                        image={profilePic}
-                        first={firstName}
-                        last={lastName}
-                        clickHandler={this.showUploader}
-                    />
-                    <ProfileTop firstName={firstName} lastName={lastName} />
-                </TopOPPPage>
                 <div className="big-wrapper">
                     <div className="wrapper-relative">
                         <CoverPicOPP
@@ -114,13 +93,6 @@ class OtherPersonsProfile extends Component {
                         <div className="bio-opp">{bio}</div>
                     </div>
                 </div>
-                <div className="footer" />
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        setImage={this.setImage}
-                        closeUploader={this.closeUploader}
-                    />
-                )}
             </div>
         );
     }
