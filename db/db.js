@@ -137,3 +137,17 @@ exports.listOfFriends = function(userId) {
         return results.rows;
     });
 };
+
+exports.getUsersByIds = function(arrayOfIds) {
+    const query = `SELECT * FROM users WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]).then(results => {
+        return results.rows;
+    });
+};
+
+exports.joinById = function(userId) {
+    const query = `SELECT * FROM users WHERE id = $1`;
+    return db.query(query, [userId]).then(results => {
+        return results.rows[0];
+    });
+};

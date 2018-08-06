@@ -55,6 +55,11 @@ function Header({ profilePic, firstName, lastName }) {
     return (
         <div className="wrapper-top-app">
             <Route exact path="/" render={() => createMenu("home")} />
+            <Route
+                exact
+                path="/online-users"
+                render={() => createMenu("chat")}
+            />
             <Route path="/user/:id" render={() => createMenu("friends")} />
             <Route
                 exact

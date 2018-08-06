@@ -265,12 +265,47 @@ app.get("*", signedOutRedirect, function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-server.listen(8080);
+let connectedSockets = [];
 
 io.on("connection", function(socket) {
-    if (!socket.request.session || !socket.request.session.user) {
+    if (!socket.request.session || !socket.request.session.id) {
         return socket.disconnect(true);
     }
 
-    const userId = socket.request.session.user.id;
+    const userId = socket.request.session.id;
+
+    connectedSockets.push({ socketId: socket.id, userId: userId });
+
+    let onlineUsers = connectedSockets.map(elem => {
+        return elem.userId;
+    });
+
+    db.getUsersByIds(onlineUsers).then(results => {
+        socket.emit("onlineUsers", results);
+    });
+
+    const wasAlreadyHere =
+        connectedSockets.filter(s => s.userId == userId).length > 1;
+
+    if (!wasAlreadyHere) {
+        db.joinById(userId).then(results => {
+            socket.broadcast.emit("userJoined", results);
+        });
+    }
+
+    socket.on("disconnect", function() {
+        connectedSockets = connectedSockets.filter(
+            entry => entry.socketId !== socket.id
+        );
+        const remainingSocketsForUser = connectedSockets.filter(
+            entry => entry.userId === userId
+        );
+        if (remainingSocketsForUser.length === 0) {
+            db.joinById(userId).then(results => {
+                socket.broadcast.emit("userLeft", results);
+            });
+        }
+    });
 });
+
+server.listen(8080);

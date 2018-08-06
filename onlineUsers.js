@@ -1,6 +1,7 @@
 const connectedSockets = [];
 
 exports.addConnectedSocket = function(socketId, userId) {
+    connectedSockets.push({ socketId: socketId, userId: userId });
     // add a new entry {socketId: socketId, userId: userId} to array connectedSockets
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Route } from "react-router-dom";
-
+import OnlineUsers from "./OnlineUsers";
 import Profile from "./Profile";
 import OtherPersonsProfile from "./OtherPersonsProfile";
 import Friends from "./Friends";
@@ -57,6 +57,7 @@ function Main({
                 )}
             />
             <Route exact path="/friends/" render={() => <Friends />} />
+            <Route exact path="/online-users/" render={() => <OnlineUsers />} />
         </div>
     );
 }
