@@ -71,3 +71,17 @@ export function userLeft(user) {
         user
     };
 }
+
+export function newMessage(message) {
+    return {
+        type: "NEW_MESSAGE",
+        message
+    };
+}
+
+export function recentMessages(messages) {
+    return {
+        type: "RECENT_MESSAGES",
+        messages
+    };
+}

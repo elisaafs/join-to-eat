@@ -5,6 +5,7 @@ import OnlineUsers from "./OnlineUsers";
 import Profile from "./Profile";
 import OtherPersonsProfile from "./OtherPersonsProfile";
 import Friends from "./Friends";
+import Chat from "./Chat";
 import { setMyCoverPic, setMyProfilePic } from "./actions";
 
 const mapStateToProps = state => {
@@ -57,6 +58,7 @@ function Main({
                 )}
             />
             <Route exact path="/friends/" render={() => <Friends />} />
+            <Route exact path="/chat/" render={() => <Chat />} />
             <Route exact path="/online-users/" render={() => <OnlineUsers />} />
         </div>
     );

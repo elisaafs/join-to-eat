@@ -35,13 +35,14 @@ function Header({ profilePic, firstName, lastName }) {
                         }`}
                     />
                 </Link>
-                <a href="/chat">
+
+                <Link to="/chat">
                     <i
                         className={`fas fa-comments icons-app ${
                             active === "chat" ? "onscreen" : ""
                         }`}
                     />
-                </a>
+                </Link>
                 <ProfilePicTop
                     image={profilePic}
                     first={firstName}
@@ -60,6 +61,7 @@ function Header({ profilePic, firstName, lastName }) {
                 path="/online-users"
                 render={() => createMenu("chat")}
             />
+            <Route exact path="/chat" render={() => createMenu("chat")} />
             <Route path="/user/:id" render={() => createMenu("friends")} />
             <Route
                 exact
