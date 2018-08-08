@@ -20,10 +20,10 @@ class OnlineUsers extends React.Component {
                 <div key={onlineFriends.id} className="single-friend">
                     <div className="friends-wrapper-online">
                         <div className="img-name">
-                            <div className="wrapper-friends-img">
+                            <div className="wrapper-friends-online-img">
                                 <Link to={`/user/${onlineFriends.id}`}>
                                     <img
-                                        className="friends-img"
+                                        className="friends-online-img"
                                         src={
                                             onlineFriends.profile_pic ||
                                             "/default.png"
@@ -31,11 +31,12 @@ class OnlineUsers extends React.Component {
                                     />
                                 </Link>
                             </div>
+                            <div className="green-online" />
                             <Link
                                 className="a-name"
                                 to={`/user/${onlineFriends.id}`}
                             >
-                                <div className="friend-name">
+                                <div className="online-friend-name">
                                     {onlineFriends.first_name}{" "}
                                     {onlineFriends.last_name}
                                 </div>
@@ -52,10 +53,10 @@ class OnlineUsers extends React.Component {
         return (
             <div className="wrapper-online">
                 <div id="friends-page">
-                    <div className="big-wrapper-friends">
-                        <div className="extra-extra-wrapper">
-                            <h1 className="friends-title">Online Users</h1>
-                            <div className="extra-wrapper">
+                    <div className="big-wrapper-online">
+                        <div className="extra-extra-wrapper-online">
+                            <h1 className="friends-online">Online Users</h1>
+                            <div className="extra-wrapper-online">
                                 {this.createUsersOnlineView(
                                     this.props.onlineUsers
                                 )}
