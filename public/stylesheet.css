@@ -961,7 +961,8 @@ main {
     border-bottom: 1px solid rgba(68, 68, 68, 0.3);
 }
 
-.big-wrapper-friends {
+.big-wrapper-friends,
+.big-wrapper-chat {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -969,6 +970,22 @@ main {
     overflow: hidden;
     margin-top: 30px;
     background-color: white;
+}
+
+.big-wrapper-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.big-wrapper-chat > .friends-title,
+.big-wrapper-chat > .chat-form {
+    flex-shrink: 0;
+}
+
+.big-wrapper-chat > .chat-messages {
+    flex-grow: 1;
+    overflow: auto;
 }
 
 .friends-wrapper {

@@ -310,19 +310,20 @@ io.on("connection", function(socket) {
 
     socket.emit("recentMessages", chatMessages);
 
-    socket.on("chatMessage", function(newMessage) {
+    socket.on("chatMessage", async function(newMessage) {
         console.log("new message, look first here Elisa", newMessage);
-        let completNewMessage = {
-            userId: socket.request.session.id,
+        const user = await db.getUserById(socket.request.session.id);
+        let completeNewMessage = {
+            user,
             content: newMessage,
             date: new Date()
         };
-        console.log("message", completNewMessage);
-        chatMessages = [...chatMessages, completNewMessage];
+        console.log("message", completeNewMessage);
+        chatMessages = [...chatMessages, completeNewMessage];
         if (chatMessages.length > 10) {
-            chatMessages.shift;
+            chatMessages.shift();
         }
-        io.sockets.emit("newMessage", completNewMessage);
+        io.sockets.emit("newMessage", completeNewMessage);
         console.log("chat messages, than look here Elisa", chatMessages);
     });
 });
