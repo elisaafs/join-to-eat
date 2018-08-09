@@ -206,6 +206,53 @@ app.get("/bio", (req, res) => {
     });
 });
 
+app.get("/profile/edit", (req, res) => {
+    db.getUserById(req.session.id).then(results => {
+        res.json(results);
+    });
+});
+
+function updateProfileInternal(newUserData, req, res) {
+    db.editUser(
+        newUserData.firstName,
+        newUserData.lastName,
+        newUserData.email,
+        newUserData.hashedPassword,
+        newUserData.city,
+        newUserData.food,
+        newUserData.chef,
+        newUserData.bio,
+        newUserData.age,
+        req.session.id
+    ).then(() => {
+        res.json({
+            redirect: "/"
+        });
+    });
+}
+
+app.post("/profile/edit", (req, res) => {
+    db.getUserById(req.session.id).then(userData => {
+        const newUserData = {
+            firstName: req.body.firstname || userData.first_name,
+            lastName: req.body.lastname || userData.last_name,
+            email: req.body.email || userData.email,
+            hashedPassword: userData.hashed_password,
+            city: req.body.city || userData.city,
+            food: req.body.food || userData.food,
+            chef: req.body.chef || userData.chef
+        };
+        if (req.body.password != "") {
+            bc.hashPassword(req.body.password).then(hashedPassword => {
+                newUserData.hashedPassword = hashedPassword;
+                updateProfileInternal(newUserData, req, res);
+            });
+        } else {
+            updateProfileInternal(newUserData, req, res);
+        }
+    });
+});
+
 app.get("/user/:id.json", function(req, res) {
     if (req.session && req.params && req.session.id == req.params.id) {
         res.json({
@@ -216,6 +263,12 @@ app.get("/user/:id.json", function(req, res) {
             res.json({ data });
         });
     }
+});
+
+app.get("/otheruser/:userId", function(req, res) {
+    db.getUserById(req.params.userId).then(data => {
+        res.json(data);
+    });
 });
 
 app.get("/friendships/:id", function(req, res) {
@@ -254,6 +307,31 @@ app.get("/wannabe-friends", function(req, res) {
     db.listOfFriends(req.session.id).then(results => {
         res.json({ results });
     });
+});
+
+app.get("/friends/:id", function(req, res) {
+    db.friendsOfFriends(req.params.id).then(results => {
+        res.json({ results });
+    });
+});
+
+app.get("/comments/:userId", (req, res) => {
+    db.getCommentsByUserId(req.params.userId)
+        .then(comments => {
+            res.json(comments);
+        })
+        .catch(err => console.log(err));
+});
+
+app.post("/comment", (req, res) => {
+    db.addComment(req.body.userId, req.session.id, req.body.comment)
+        .then(result => {
+            res.json({
+                success: true,
+                comment: result
+            });
+        })
+        .catch(err => console.log(err));
 });
 
 app.get("/logout", (req, res) => {

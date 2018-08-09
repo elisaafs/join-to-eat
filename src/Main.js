@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Route } from "react-router-dom";
-import OnlineUsers from "./OnlineUsers";
 import Profile from "./Profile";
 import OtherPersonsProfile from "./OtherPersonsProfile";
 import Friends from "./Friends";
 import Chat from "./Chat";
+import EditInfos from "./EditInfos";
 import { setMyCoverPic, setMyProfilePic } from "./actions";
 
 const mapStateToProps = state => {
@@ -13,7 +13,15 @@ const mapStateToProps = state => {
         profilePic: state.me.profilePic,
         coverPic: state.me.coverPic,
         firstName: state.me.firstName,
-        lastName: state.me.lastName
+        lastName: state.me.lastName,
+        bio: state.me.bio,
+        city: state.me.city,
+        age: state.me.age,
+        food: state.me.food,
+        chef: state.me.chef,
+        email: state.me.email,
+        password: state.me.hashedPassword,
+        id: state.me.id
     };
 };
 
@@ -30,7 +38,15 @@ function Main({
     lastName,
     coverPic,
     setProfilePic,
-    setCoverPic
+    setCoverPic,
+    age,
+    chef,
+    bio,
+    id,
+    food,
+    city,
+    password,
+    email
 }) {
     return (
         <div className="wrapper-main">
@@ -45,6 +61,24 @@ function Main({
                         coverPic={coverPic}
                         setProfilePic={setProfilePic}
                         setCoverPic={setCoverPic}
+                        id={id}
+                    />
+                )}
+            />
+            <Route
+                exact
+                path="/editprofile"
+                render={() => (
+                    <EditInfos
+                        firstName={firstName}
+                        lastName={lastName}
+                        email={email}
+                        age={age}
+                        city={city}
+                        password={password}
+                        chef={chef}
+                        food={food}
+                        bio={bio}
                     />
                 )}
             />
@@ -54,12 +88,22 @@ function Main({
                     <OtherPersonsProfile
                         match={props.match}
                         history={props.history}
+                        specialView="wall"
+                    />
+                )}
+            />
+            <Route
+                path="/friends/:id"
+                render={props => (
+                    <OtherPersonsProfile
+                        match={props.match}
+                        history={props.history}
+                        specialView="friends"
                     />
                 )}
             />
             <Route exact path="/friends/" render={() => <Friends />} />
             <Route exact path="/chat/" render={() => <Chat />} />
-            <Route exact path="/online-users/" render={() => <OnlineUsers />} />
         </div>
     );
 }

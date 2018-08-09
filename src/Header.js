@@ -62,7 +62,9 @@ function Header({ profilePic, firstName, lastName }) {
                 render={() => createMenu("chat")}
             />
             <Route exact path="/chat" render={() => createMenu("chat")} />
-            <Route path="/user/:id" render={() => createMenu("friends")} />
+            <Route exact path="/editprofile" render={() => createMenu("")} />
+            <Route path="/user/:id" render={() => createMenu("")} />
+            <Route path="/friends/:id" render={() => createMenu("")} />
             <Route
                 exact
                 path="/friends/"

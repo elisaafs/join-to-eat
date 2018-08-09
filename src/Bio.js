@@ -3,9 +3,7 @@ import React, { Component } from "react";
 class Bio extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
-
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e) {
@@ -14,7 +12,7 @@ class Bio extends Component {
         });
     }
     render() {
-        const { bio, showBio, toggleShowBio, setBio } = this.props;
+        const { bio, chef, city, food, clickHandler } = this.props;
         return (
             <div className="wrapper-bio">
                 <div className="wrapper-intro-profile">
@@ -28,37 +26,30 @@ class Bio extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="linha" />
+                <div className="linha" onClick={clickHandler} />
                 <div className="about-me">About Me:</div>
-                {bio && this.handleChange ? (
-                    <div className="bio">
-                        {bio} <span onClick={toggleShowBio}>Edit</span>{" "}
-                    </div>
+                {bio ? (
+                    <div className="bio">{bio}</div>
                 ) : (
-                    <p className="text-bio" onClick={toggleShowBio}>
-                        You still do not have a bio.
-                    </p>
+                    <p className="text-bio">You still do not have this info.</p>
                 )}
-
-                {showBio && (
-                    <textarea
-                        onChange={this.handleChange}
-                        name="bio"
-                        id=""
-                        cols="30"
-                        rows="10"
-                    />
+                <div className="about-me">City:</div>
+                {city ? (
+                    <div className="bio">Lives in {city}</div>
+                ) : (
+                    <p className="text-bio">You still do not have this info.</p>
                 )}
-
-                {showBio && (
-                    <button
-                        onClick={() => {
-                            setBio(this.state.bio);
-                            toggleShowBio();
-                        }}
-                    >
-                        SAVE
-                    </button>
+                <div className="about-me">Favorite Food:</div>
+                {food ? (
+                    <div className="bio">{food}</div>
+                ) : (
+                    <p className="text-bio">You still do not have this info.</p>
+                )}
+                <div className="about-me">Favorite Chef:</div>
+                {chef ? (
+                    <div className="chef">{chef}</div>
+                ) : (
+                    <p className="text-bio">You still do not have this info.</p>
                 )}
             </div>
         );

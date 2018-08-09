@@ -601,10 +601,54 @@ span {
     width: 95px;
 }
 
+.wrapper-online-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.img-name-wallpost {
+    display: flex;
+    align-items: center;
+    margin: 15px 40px;
+    width: 200px;
+}
+
+.img-comment {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
 .friends-img {
     height: 95px;
     width: 95px;
     object-fit: cover;
+}
+
+.comment {
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    opacity: 0.6;
+    color: rgb(68, 68, 68);
+}
+.wrapper-friendsof-img {
+    height: 60px;
+    width: 60px;
+}
+
+.friendsof-img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+}
+
+.friendsonline-img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .wrapper-friends-online-img {
@@ -632,6 +676,18 @@ span {
     font-size: 15px;
     color: rgb(68, 68, 68);
 }
+
+#friendsof-page {
+    width: 600px;
+    margin-bottom: 30px;
+}
+.friendof-name {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(68, 68, 68);
+}
+
 .online-friend-name {
     margin-left: 4px;
     font-weight: 600;
@@ -814,10 +870,30 @@ main {
     justify-content: center;
     align-items: center;
 }
+
+.wrapper-inlet-online {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-top: 1px solid rgba(68, 68, 68, 0.3);
+}
 #file-field {
     display: none;
 }
 
+.textarea-comment {
+    border: 1px solid rgba(68, 68, 68, 0.3);
+    resize: none;
+    width: 505px;
+    height: 36px;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.button-comment {
+    width: 60px !important;
+}
 .profile-pic-opp {
     height: 160px;
     border-radius: 50%;
@@ -893,11 +969,20 @@ main {
     margin-right: 20px;
     font-size: 14px;
     margin-top: 5px;
-    opacity: 0.5;
-    padding-bottom: 20px;
+    opacity: 0.6;
     color: rgb(68, 68, 68);
 }
 
+.chef,
+.chef-opp {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+    opacity: 0.5;
+    color: rgb(68, 68, 68);
+    padding-bottom: 20px;
+}
 .change-cover {
     position: absolute;
     top: 10px;
@@ -983,6 +1068,27 @@ main {
     border-bottom: 1px solid rgba(68, 68, 68, 0.3);
 }
 
+.friendsof-title {
+    font-size: 17px;
+    padding: 10px 0px 10px 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: rgba(255, 255, 255, 0.5);
+
+    background-color: #36465d;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.online-title {
+    margin-left: 20px;
+    font-size: 18px;
+    color: rgb(68, 68, 68);
+    font-weight: 600;
+    overflow: hidden;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
 .friends-online {
     font-size: 14px;
     padding: 5px 0px 5px 10px;
@@ -1002,6 +1108,17 @@ main {
     overflow: hidden;
     display: flex;
     margin-top: 30px;
+    background-color: white;
+}
+
+.big-wrapper-friendsof {
+    max-width: 600px;
+    margin-left: auto;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    margin-top: 15px;
     background-color: white;
 }
 
@@ -1048,6 +1165,20 @@ main {
     margin-bottom: 20px;
     border: 1px solid rgba(68, 68, 68, 0.3);
 }
+.friendsof-wrapper {
+    width: 600px;
+    border-top: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.friendsof-wrapp {
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
 
 .friends-wrapper-online {
     display: flex;
@@ -1063,11 +1194,23 @@ main {
     margin-right: 5px;
 }
 
+.friendsof {
+    margin-right: 7px;
+}
 .img-name {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.img-name-friends {
+    display: flex;
+
+    align-items: center;
+    margin: 15px 40px;
+    width: 200px;
+}
+
 .footer {
     width: 100%;
     height: 20px;
@@ -1096,7 +1239,9 @@ main {
     -moz-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
     box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
 }
-
+.wrapper-three {
+    position: relative;
+}
 .wrapper-menu-arrow:before {
     content: "";
     position: absolute;
@@ -1180,6 +1325,12 @@ main {
     justify-content: space-between;
 }
 
+.extra-wrapper-friendsof {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .extra-wrapper-online {
     padding-top: 20px;
     display: flex;
@@ -1195,6 +1346,29 @@ main {
     font-weight: 400;
 }
 
+.no-friendof-requests {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+.no-wallpost-requests {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: rgba(68, 68, 68, 0.6);
+    font-weight: 400;
+    font-size: 14px;
+    width: 600px;
+    border-top: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.bio-wallpost-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
 .a-name {
     text-decoration: none;
 }
@@ -1230,6 +1404,11 @@ main {
     flex-direction: row-reverse;
 }
 
+.wrapper-friendsof {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 #chat-message-date {
     font-size: 10px;
     margin-left: 8px;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "./axios";
 
-class Registration extends Component {
+class EditInfos extends Component {
     constructor() {
         super();
 
@@ -21,8 +21,7 @@ class Registration extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        axios.post("/registration", this.state).then(resp => {
+        axios.post("/editprofile", this.state).then(resp => {
             if (resp.data.error) {
                 this.setState({
                     error: resp.data.error
@@ -34,6 +33,15 @@ class Registration extends Component {
     }
 
     render() {
+        const {
+            firstName,
+            lastName,
+            email,
+            chef,
+            food,
+            bio,
+            city
+        } = this.props;
         return (
             <div className="registration">
                 <div className="form-wrapper">
@@ -42,28 +50,53 @@ class Registration extends Component {
                         <input
                             onChange={this.handleChange}
                             name="firstName"
-                            placeholder="First Name"
+                            placeholder={firstName}
                             type="text"
                         />
                         <input
                             onChange={this.handleChange}
                             name="lastName"
-                            placeholder="Last Name"
+                            placeholder={lastName}
                             type="text"
                         />
                         <input
                             onChange={this.handleChange}
                             name="email"
-                            placeholder="Email"
+                            placeholder={email}
                             type="text"
                         />
                         <input
                             onChange={this.handleChange}
                             name="password"
-                            placeholder="Password"
+                            placeholder="Type a new password"
                             type="password"
                         />
-                        <button type="submit">Sign Up</button>
+                        <input
+                            onChange={this.handleChange}
+                            name="bio"
+                            placeholder={bio}
+                            type="text"
+                        />
+                        <input
+                            onChange={this.handleChange}
+                            name="city"
+                            placeholder={city}
+                            type="text"
+                        />
+                        <input
+                            onChange={this.handleChange}
+                            name="food"
+                            placeholder={food}
+                            type="text"
+                        />
+                        <input
+                            onChange={this.handleChange}
+                            name="chef"
+                            placeholder={chef}
+                            type="text"
+                        />
+
+                        <button type="submit">Save</button>
                     </form>
                 </div>
             </div>
@@ -71,4 +104,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration;
+export default EditInfos;

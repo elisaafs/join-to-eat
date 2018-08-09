@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS wallpost;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -24,4 +25,12 @@ CREATE TABLE friendships (
     status VARCHAR(15),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
+);
+
+CREATE TABLE wallpost(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    author_id INTEGER REFERENCES users(id),
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

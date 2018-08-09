@@ -85,3 +85,46 @@ export function recentMessages(messages) {
         messages
     };
 }
+
+export async function friendsOfFriends(id) {
+    const { data } = await axios.get(`/friends/${id}`);
+    return {
+        type: "FRIENDS_OF_FRIENDS",
+        friends: data.results
+    };
+}
+
+export async function getComments(dispatch, userId) {
+    const { data } = await axios.get(`/comments/${userId}`);
+    data.forEach(comment => {
+        dispatch(loadUser(comment.author_id));
+    });
+    return {
+        type: "GET_COMMENTS",
+        userId,
+        comments: data
+    };
+}
+
+export async function postComment(comment, userId) {
+    const { data } = await axios.post("/comment", {
+        userId,
+        comment
+    });
+    return {
+        type: "POST_COMMENT",
+        userId,
+        comment: data.comment
+    };
+}
+
+export async function loadUser(userId) {
+    console.log("load user", userId);
+    const { data } = await axios.get(`/otheruser/${userId}`);
+    console.log("load user got data", userId, data);
+    return {
+        type: "USER_LOADED",
+        userId,
+        userInformation: data
+    };
+}

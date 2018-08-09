@@ -28,7 +28,7 @@ exports.getInfo = function(email) {
 };
 
 exports.getUserById = function(userId) {
-    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, bio, age, food, chef FROM users WHERE id= $1;`;
+    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, hashed_password, bio, age, food, chef FROM users WHERE id= $1;`;
     const params = [userId];
     return db.query(q, params).then(results => {
         console.log(results.rows);
@@ -138,6 +138,20 @@ exports.listOfFriends = function(userId) {
     });
 };
 
+exports.friendsOfFriends = function(userId) {
+    const params = [userId];
+    const q = `
+           SELECT users.id, first_name, last_name, profile_pic, status
+           FROM friendships
+           JOIN users
+           ON (status = 'friends' AND receiver_id = $1 AND sender_id = users.id)
+           OR (status = 'friends' AND sender_id = $1 AND receiver_id = users.id);
+       `;
+    return db.query(q, params).then(results => {
+        return results.rows;
+    });
+};
+
 exports.getUsersByIds = function(arrayOfIds) {
     const query = `SELECT * FROM users WHERE id = ANY($1)`;
     return db.query(query, [arrayOfIds]).then(results => {
@@ -148,6 +162,60 @@ exports.getUsersByIds = function(arrayOfIds) {
 exports.joinById = function(userId) {
     const query = `SELECT * FROM users WHERE id = $1`;
     return db.query(query, [userId]).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.editUser = function(
+    firstName,
+    lastName,
+    email,
+    hashedPassword,
+    userId,
+    bio,
+    chef,
+    city,
+    age,
+    food
+) {
+    const q = `UPDATE users SET first_name = $1, last_name = $2, email = $3, hashed_password = $4, bio = $5, chef = $6, city = $7, age = $8, food = $9 WHERE id = $5
+    RETURNING id, first_name, last_name, email, bio, chef, city, age, food;`;
+
+    const params = [
+        firstName,
+        lastName,
+        email,
+        hashedPassword,
+        userId,
+        bio,
+        chef,
+        city,
+        age,
+        food
+    ];
+
+    return db.query(q, params).then(results => {
+        console.log("editUser result", results.rows[0]);
+        return results.rows[0];
+    });
+};
+
+exports.getCommentsByUserId = function(userId) {
+    const query = `SELECT * FROM wallpost WHERE user_id = $1 ORDER BY created_at DESC`;
+    const params = [userId];
+    return db.query(query, params).then(results => {
+        return results.rows;
+    });
+};
+
+exports.addComment = function(userId, authorId, comment) {
+    const query = `
+          INSERT INTO wallpost (user_id, author_id, comment)
+          VALUES ($1, $2, $3)
+          RETURNING *
+    `;
+    const params = [userId, authorId, comment];
+    return db.query(query, params).then(results => {
         return results.rows[0];
     });
 };
