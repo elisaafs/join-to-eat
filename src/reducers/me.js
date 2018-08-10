@@ -6,7 +6,12 @@ export function me(state = {}, action) {
                 firstName: action.firstName,
                 lastName: action.lastName,
                 profilePic: action.profilePic,
-                coverPic: action.coverPic
+                coverPic: action.coverPic,
+                email: action.email,
+                bio: action.bio,
+                city: action.city,
+                food: action.food,
+                chef: action.chef
             };
 
         case "SET_MY_COVER_PIC":

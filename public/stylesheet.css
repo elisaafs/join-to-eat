@@ -15,6 +15,7 @@ main {
     justify-content: center;
     align-items: center;
     top: calc(50% - 196px);
+    margin-top: 30px;
     left: calc(50% - 350px);
 }
 
@@ -23,6 +24,13 @@ main {
     flex-direction: column;
 }
 
+.form-edit {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .infos-top {
     padding-top: 30px;
     text-align: center;
@@ -39,16 +47,32 @@ main {
     margin-top: 8px;
 }
 
+.wrapper-email {
+    margin-right: 15px;
+}
+
 input {
     padding: 11px 10px 11px 13px;
     display: block;
     margin: 0;
     border: none;
+    background-color: white;
     border-bottom: 1px rgb(213, 217, 221) solid;
     font-size: 16px;
     font-weight: 400px !important;
 }
 
+.inputs-edit {
+    padding: 11px 10px 11px 13px;
+    display: block;
+    margin: 0;
+    background-color: rgb(213, 217, 221) !important;
+    width: 300px !important;
+    border: none;
+    border-bottom: 1px rgb(213, 217, 221) solid;
+    font-size: 16px;
+    font-weight: 400px !important;
+}
 button {
     width: 300px;
     padding: 12px 10px 12px 10px;
@@ -299,9 +323,16 @@ span {
 
 .form-wrapper {
     margin-left: auto;
+    text-align: center;
     margin-right: auto;
 }
 
+.down-input {
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 600px;
+    color: rgb(68, 68, 68);
+}
 .logo-top {
     position: absolute;
 }
@@ -319,7 +350,23 @@ span {
     justify-content: center;
     align-items: center;
 }
-
+.editbutton {
+    margin-top: 0px !important;
+}
+.edit-profile {
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 785px;
+    margin-top: 0px;
+    text-align: initial;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: #36465d;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.3);
+}
 .text-main-page {
     color: white;
     text-align: center;
@@ -345,7 +392,13 @@ span {
     position: absolute;
     cursor: pointer;
 }
-
+.form-wrapper2 {
+    background-color: white;
+    padding-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
 .bbq-top {
     background-color: rgb(86, 188, 138);
     padding-top: 10px;
@@ -601,12 +654,28 @@ span {
     width: 95px;
 }
 
+.wrapper-myfriends-img {
+    height: 60px;
+    width: 60px;
+}
+
+.myfriends-img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+}
 .wrapper-online-img {
     height: 50px;
     width: 50px;
     border-radius: 50%;
 }
 
+.myfriend-name {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(68, 68, 68);
+}
 .img-name-wallpost {
     display: flex;
     align-items: center;
@@ -677,9 +746,17 @@ span {
     color: rgb(68, 68, 68);
 }
 
+.myfriends-name {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgb(68, 68, 68);
+    font-size: 13px;
+}
+
 #friendsof-page {
     width: 600px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .friendof-name {
     margin-left: 10px;
@@ -885,10 +962,11 @@ main {
 .textarea-comment {
     border: 1px solid rgba(68, 68, 68, 0.3);
     resize: none;
-    width: 505px;
+    width: 515px;
     height: 36px;
     margin-top: 10px;
     margin-right: 5px;
+    font-size: 14px;
 }
 
 .button-comment {
@@ -1019,6 +1097,18 @@ main {
     font-weight: 600 !important;
     margin-right: 10px;
 }
+
+.button-myfriends {
+    padding: 0.6em 1em !important;
+    color: rgb(68, 68, 68);
+    background-color: rgb(233, 235, 238) !important;
+    cursor: pointer;
+    font-size: 10px !important;
+    width: 80px !important;
+    font-weight: 600 !important;
+    margin-right: 10px;
+    height: 30px;
+}
 .friend-button {
     padding: 0.6em 1em !important;
     color: rgb(68, 68, 68);
@@ -1063,20 +1153,34 @@ main {
     margin-top: 0px;
     margin-bottom: 0px;
     color: rgba(255, 255, 255, 0.5);
-
     background-color: #36465d;
     border-bottom: 1px solid rgba(68, 68, 68, 0.3);
 }
 
-.friendsof-title {
-    font-size: 17px;
-    padding: 10px 0px 10px 15px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    color: rgba(255, 255, 255, 0.5);
-
-    background-color: #36465d;
+#myfriends-page {
+    width: 600px;
+}
+.myfriends-title {
+    padding-left: 20px;
+    font-size: 18px;
+    color: rgb(68, 68, 68);
+    font-weight: 600;
     border-bottom: 1px solid rgba(68, 68, 68, 0.3);
+    overflow: hidden;
+    padding-top: 6px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.friendsof-title {
+    padding-left: 20px;
+    font-size: 18px;
+    color: rgb(68, 68, 68);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.3);
+    overflow: hidden;
+    padding-top: 6px;
+    padding-bottom: 12px;
 }
 
 .online-title {
@@ -1111,6 +1215,17 @@ main {
     background-color: white;
 }
 
+.big-wrapper-myfriends {
+    max-width: 600px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    margin-top: 15px;
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    background-color: white;
+}
+
 .big-wrapper-friendsof {
     max-width: 600px;
     margin-left: auto;
@@ -1133,7 +1248,7 @@ main {
     background-color: white;
     flex-direction: column;
     height: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .big-wrapper-online {
@@ -1165,9 +1280,23 @@ main {
     margin-bottom: 20px;
     border: 1px solid rgba(68, 68, 68, 0.3);
 }
+
+.myfriends-wrapper {
+    display: flex;
+    width: 260px;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .friendsof-wrapper {
     width: 600px;
     border-top: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.friendsof-wrapper2 {
+    width: 250px;
 }
 
 .friendsof-wrapp {
@@ -1194,6 +1323,9 @@ main {
     margin-right: 5px;
 }
 
+.single-friend {
+    margin-bottom: 10px;
+}
 .friendsof {
     margin-right: 7px;
 }
@@ -1202,7 +1334,13 @@ main {
     justify-content: center;
     align-items: center;
 }
+.img-name-online {
+    display: flex;
 
+    align-items: center;
+    margin: 15px 40px;
+    width: 200px;
+}
 .img-name-friends {
     display: flex;
 
@@ -1221,7 +1359,10 @@ main {
 .wrapper-menu-arrow {
     background-color: white;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 13px;
     padding: 9px 11px;
     text-align: center;
     -webkit-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
@@ -1234,7 +1375,8 @@ main {
     position: relative;
     z-index: 1;
     padding: 9px 11px;
-    text-align: center;
+    display: none;
+    width: 75px;
     -webkit-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
     box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 1);
@@ -1291,14 +1433,13 @@ main {
 .big-wrapper-three {
     position: absolute;
     z-index: 1000;
-    display: none;
 }
 
 .wrapper-arrow:hover .big-wrapper-menu {
     display: block;
 }
 
-.wrapper-three:hover .big-wrapper-three {
+.wrapper-three:hover .wrapper-three-menu {
     display: block;
 }
 
@@ -1325,6 +1466,14 @@ main {
     justify-content: space-between;
 }
 
+.extra-wrapper-myfriends {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+
 .extra-wrapper-friendsof {
     display: flex;
     flex-wrap: wrap;
@@ -1344,6 +1493,15 @@ main {
 .no-friend-requests {
     padding-bottom: 15px;
     font-weight: 400;
+}
+
+.no-myfriend-requests {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    color: rgba(68, 68, 68, 0.6);
+    font-weight: 400;
+    font-size: 14px;
+    width: 600px;
 }
 
 .no-friendof-requests {

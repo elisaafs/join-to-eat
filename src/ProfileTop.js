@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class ProfileTop extends Component {
     constructor(props) {
@@ -23,7 +24,12 @@ class ProfileTop extends Component {
                     <i className="fas fa-angle-down arrow-down" />
                     <div className="big-wrapper-menu">
                         <div className="wrapper-menu-arrow">
-                            <div className="menu-arrow">Edit Profile</div>
+                            <Link
+                                className="menu-arrow a-name"
+                                to={`/editprofile`}
+                            >
+                                Edit Profile
+                            </Link>
                             <a className="menu-arrow" href="/logout">
                                 Logout
                             </a>

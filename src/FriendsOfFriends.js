@@ -21,11 +21,10 @@ class FriendsOfFriends extends React.Component {
     }
 
     createFriendsOfFriendsListView(friends, emptyMessage) {
-        console.log("friends of friends", friends);
         if (friends.length > 0) {
             return friends.map(friend => (
                 <div key={friend.id} className="single-friend">
-                    <div className="friendsof-wrapper">
+                    <div className="friendsof-wrapper2">
                         <div className="img-name-friends">
                             <div className="wrapper-friendsof-img">
                                 <Link to={`/user/${friend.id}`}>
@@ -68,7 +67,7 @@ class FriendsOfFriends extends React.Component {
                 <div className="big-wrapper-friendsof">
                     <div className="extra-extra-wrapper">
                         <h1 className="friendsof-title">
-                            <i className="fas fa-user-friends friendsof" />Friends
+                            <i className="fas fa-utensil-spoon friendsof" />Friends
                         </h1>
                         <div className="extra-wrapper-friendsof">
                             {this.createFriendsOfFriendsView()}

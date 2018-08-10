@@ -51,13 +51,13 @@ class Wallpost extends React.Component {
                             <div className="img-comment">
                                 <div className="img-name-wallpost">
                                     <div className="wrapper-online-img">
-                                        <Link to={`/user/${comment.id}`}>
+                                        <Link to={`/user/${comment.author_id}`}>
                                             {profilePic}
                                         </Link>
                                     </div>
                                     <Link
                                         className="a-name"
-                                        to={`/user/${comment.id}`}
+                                        to={`/user/${comment.author_id}`}
                                     >
                                         <div className="friendof-name">
                                             {firstName} {lastName}
@@ -89,8 +89,8 @@ class Wallpost extends React.Component {
                 <div className="big-wrapper-friendsof">
                     <div className="extra-extra-wrapper">
                         <h1 className="online-title">
-                            <i className="fas fa-pencil-alt friendsof" />Make a
-                            Post
+                            <i className="fas fa-utensils friendsof" />Share
+                            Your Hungry
                         </h1>
                         <div className="extra-wrapper-friendsof">
                             {this.createWallpostView()}

@@ -124,7 +124,6 @@ app.get("/user", function(req, res) {
     db.getUserById(req.session.id)
         .then(data => res.json(data))
         .catch(err => {
-            console.log("is not working", err);
             res.sendStatus(500);
         });
 });
@@ -206,12 +205,6 @@ app.get("/bio", (req, res) => {
     });
 });
 
-app.get("/profile/edit", (req, res) => {
-    db.getUserById(req.session.id).then(results => {
-        res.json(results);
-    });
-});
-
 function updateProfileInternal(newUserData, req, res) {
     db.editUser(
         newUserData.firstName,
@@ -222,7 +215,6 @@ function updateProfileInternal(newUserData, req, res) {
         newUserData.food,
         newUserData.chef,
         newUserData.bio,
-        newUserData.age,
         req.session.id
     ).then(() => {
         res.json({
@@ -232,15 +224,16 @@ function updateProfileInternal(newUserData, req, res) {
 }
 
 app.post("/profile/edit", (req, res) => {
-    db.getUserById(req.session.id).then(userData => {
+    db.getCompleteUserById(req.session.id).then(userData => {
         const newUserData = {
-            firstName: req.body.firstname || userData.first_name,
-            lastName: req.body.lastname || userData.last_name,
+            firstName: req.body.firstName || userData.first_name,
+            lastName: req.body.lastName || userData.last_name,
             email: req.body.email || userData.email,
             hashedPassword: userData.hashed_password,
             city: req.body.city || userData.city,
             food: req.body.food || userData.food,
-            chef: req.body.chef || userData.chef
+            chef: req.body.chef || userData.chef,
+            bio: req.body.bio || userData.bio
         };
         if (req.body.password != "") {
             bc.hashPassword(req.body.password).then(hashedPassword => {
@@ -389,20 +382,17 @@ io.on("connection", function(socket) {
     socket.emit("recentMessages", chatMessages);
 
     socket.on("chatMessage", async function(newMessage) {
-        console.log("new message, look first here Elisa", newMessage);
         const user = await db.getUserById(socket.request.session.id);
         let completeNewMessage = {
             user,
             content: newMessage,
             date: new Date()
         };
-        console.log("message", completeNewMessage);
         chatMessages = [...chatMessages, completeNewMessage];
         if (chatMessages.length > 10) {
             chatMessages.shift();
         }
         io.sockets.emit("newMessage", completeNewMessage);
-        console.log("chat messages, than look here Elisa", chatMessages);
     });
 });
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Bio extends Component {
     constructor(props) {
@@ -21,7 +22,12 @@ class Bio extends Component {
                         <i className="fas fa-ellipsis-h three"> </i>
                         <div className="big-wrapper-three">
                             <div className="wrapper-three-menu">
-                                <div className="menu-three">Edit Profile</div>
+                                <Link
+                                    className="menu-arrow a-name"
+                                    to={`/editprofile`}
+                                >
+                                    Edit Profile
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -27,11 +27,18 @@ exports.getInfo = function(email) {
     });
 };
 
-exports.getUserById = function(userId) {
-    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, hashed_password, bio, age, food, chef FROM users WHERE id= $1;`;
+exports.getCompleteUserById = function(userId) {
+    const q = `SELECT * FROM users WHERE id= $1;`;
     const params = [userId];
     return db.query(q, params).then(results => {
-        console.log(results.rows);
+        return results.rows[0];
+    });
+};
+
+exports.getUserById = function(userId) {
+    const q = `SELECT id, first_name, last_name, profile_pic, cover_pic, email, bio, city, food, chef FROM users WHERE id= $1;`;
+    const params = [userId];
+    return db.query(q, params).then(results => {
         return results.rows[0];
     });
 };
@@ -101,7 +108,6 @@ exports.createBff = function(userId, bffId) {
 
 exports.cancelBff = function(userId, bffId) {
     const params = [userId, bffId];
-    console.log(params);
     const q = `DELETE FROM friendships WHERE ((sender_id = $1 AND receiver_id = $2)
     OR (sender_id = $2 AND receiver_id = $1));
     `;
@@ -171,15 +177,14 @@ exports.editUser = function(
     lastName,
     email,
     hashedPassword,
-    userId,
-    bio,
-    chef,
     city,
-    age,
-    food
+    food,
+    chef,
+    bio,
+    userId
 ) {
-    const q = `UPDATE users SET first_name = $1, last_name = $2, email = $3, hashed_password = $4, bio = $5, chef = $6, city = $7, age = $8, food = $9 WHERE id = $5
-    RETURNING id, first_name, last_name, email, bio, chef, city, age, food;`;
+    const q = `UPDATE users SET first_name = $1, last_name = $2, email = $3, hashed_password = $4, bio = $6, chef = $7, city = $8, food = $9 WHERE id = $5
+    RETURNING id, first_name, last_name, email, bio, chef, city, food;`;
 
     const params = [
         firstName,
@@ -190,12 +195,10 @@ exports.editUser = function(
         bio,
         chef,
         city,
-        age,
         food
     ];
 
     return db.query(q, params).then(results => {
-        console.log("editUser result", results.rows[0]);
         return results.rows[0];
     });
 };

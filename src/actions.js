@@ -2,7 +2,6 @@ import axios from "./axios";
 
 export async function receiveFriendsWannabe() {
     const { data } = await axios.get("/wannabe-friends");
-    console.log("data", data);
     return {
         type: "RECEIVE_FRIENDS_WANNABE",
         users: data.results
@@ -33,7 +32,12 @@ export async function loadMyProfile() {
         firstName: data.first_name,
         lastName: data.last_name,
         profilePic: data.profile_pic || "/default.png",
-        coverPic: data.cover_pic || "/defaultcover.png"
+        coverPic: data.cover_pic || "/defaultcover.png",
+        email: data.email,
+        bio: data.bio,
+        city: data.city,
+        food: data.food,
+        chef: data.chef
     };
 }
 
@@ -119,12 +123,31 @@ export async function postComment(comment, userId) {
 }
 
 export async function loadUser(userId) {
-    console.log("load user", userId);
     const { data } = await axios.get(`/otheruser/${userId}`);
-    console.log("load user got data", userId, data);
     return {
         type: "USER_LOADED",
         userId,
         userInformation: data
+    };
+}
+
+export async function editProfile(
+    myUserId,
+    myProfilePic,
+    myCoverPic,
+    newProfile
+) {
+    return {
+        type: "LOAD_MY_PROFILE",
+        id: myUserId,
+        firstName: newProfile.firstName,
+        lastName: newProfile.lastName,
+        profilePic: myProfilePic,
+        coverPic: myCoverPic,
+        email: newProfile.email,
+        bio: newProfile.bio,
+        city: newProfile.city,
+        food: newProfile.food,
+        chef: newProfile.chef
     };
 }

@@ -58,29 +58,55 @@ function Main({
                         profilePic={profilePic}
                         firstName={firstName}
                         lastName={lastName}
+                        city={city}
+                        food={food}
+                        chef={chef}
+                        bio={bio}
                         coverPic={coverPic}
                         setProfilePic={setProfilePic}
                         setCoverPic={setCoverPic}
                         id={id}
+                        specialView="wall"
+                    />
+                )}
+            />
+            <Route
+                exact
+                path="/myfriends"
+                render={() => (
+                    <Profile
+                        profilePic={profilePic}
+                        firstName={firstName}
+                        lastName={lastName}
+                        city={city}
+                        food={food}
+                        chef={chef}
+                        coverPic={coverPic}
+                        setProfilePic={setProfilePic}
+                        setCoverPic={setCoverPic}
+                        id={id}
+                        specialView="friends"
                     />
                 )}
             />
             <Route
                 exact
                 path="/editprofile"
-                render={() => (
-                    <EditInfos
-                        firstName={firstName}
-                        lastName={lastName}
-                        email={email}
-                        age={age}
-                        city={city}
-                        password={password}
-                        chef={chef}
-                        food={food}
-                        bio={bio}
-                    />
-                )}
+                render={() =>
+                    id ? (
+                        <EditInfos
+                            firstName={firstName}
+                            lastName={lastName}
+                            email={email}
+                            age={age}
+                            city={city}
+                            password={password}
+                            chef={chef}
+                            food={food}
+                            bio={bio}
+                        />
+                    ) : null
+                }
             />
             <Route
                 path="/user/:id"

@@ -36,6 +36,5 @@ export function init(store) {
 }
 
 export function emitChatMessage(newChatMsg) {
-    console.log("are we here?");
     socket.emit("chatMessage", newChatMsg);
 }

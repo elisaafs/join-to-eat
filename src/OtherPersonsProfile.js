@@ -134,10 +134,10 @@ class OtherPersonsProfile extends Component {
                             <div className="about-me">Favorite Chef:</div>
                             <div className="chef-opp">{chef}</div>
                         </div>
-                        {this.props.specialView === "wall" ? (
+                        {this.props.specialView === "wall" && id ? (
                             <Wallposts id={id} />
                         ) : null}
-                        {this.props.specialView === "friends" ? (
+                        {this.props.specialView === "friends" && id ? (
                             <FriendsOfFriends id={id} />
                         ) : null}
                     </div>

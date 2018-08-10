@@ -18,13 +18,10 @@ export default class Button extends React.Component {
                     status: "no friendship"
                 });
             } else if (results.data.status == "pending") {
-                this.setState(
-                    {
-                        status: "pending",
-                        receiverId: results.data.receiver_id
-                    },
-                    () => console.log("state after update: ", this.state)
-                );
+                this.setState({
+                    status: "pending",
+                    receiverId: results.data.receiver_id
+                });
             } else if (results.data.status == "friends") {
                 this.setState({ status: "friends" });
             }
