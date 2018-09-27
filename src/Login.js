@@ -37,7 +37,9 @@ class Login extends Component {
         return (
             <div className="login">
                 <div className="form-wrapper">
-                    {this.state.error ? <div>{this.state.error}</div> : null}
+                    {this.state.error ? (
+                        <div className="error">{this.state.error}</div>
+                    ) : null}
                     <form className="form" onSubmit={this.handleSubmit}>
                         <input
                             onChange={this.handleChange}

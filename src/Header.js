@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link, Route } from "react-router-dom";
-
 import Logo from "./Logo";
 import ProfilePicTop from "./ProfilePicTop";
 import ProfileTop from "./ProfileTop";

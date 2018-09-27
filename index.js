@@ -94,7 +94,7 @@ app.post("/registration", (req, res) => {
             error: "Please, fill all the fields."
         });
     } else {
-        bc.hashPassword(req.body.password)
+        bc.hashPassword(req.body.password.trim())
             .then(hashedPassword => {
                 pass = hashedPassword;
                 return db
